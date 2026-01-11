@@ -2,7 +2,7 @@
 
 Transform SVG graphics into interactive, animated ASCII art with mouse-reactive glow effects.
 
-**[Live Demo](https://ascii-svg-gen.vercel.app)** | **[Portfolio](https://tommyhoffman.io)**
+**[Live Demo](https://ascii-animate.vercel.app)** | **[Developer's Portfolio](https://tommyhoffman.io)**
 
 ---
 
