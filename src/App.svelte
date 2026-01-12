@@ -207,6 +207,10 @@
               <li><strong>Glow Radius:</strong> Size of the mouse glow effect</li>
               <li><strong>Glow Intensity:</strong> Brightness of the glow</li>
               <li><strong>Base Opacity:</strong> Visibility of non-glowing characters</li>
+              <li><strong>Base Brightness:</strong> Color intensity of non-glowing characters</li>
+              <li><strong>Primary Color:</strong> Glow/hover color</li>
+              <li><strong>Secondary Color:</strong> Base character color (two-tone effect)</li>
+              <li><strong>Cursor Halo:</strong> Floating ASCII characters orbit the cursor</li>
               <li><strong>Character Set:</strong> Characters used for brightness mapping (dark → bright)</li>
             </ul>
           </section>

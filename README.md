@@ -12,6 +12,8 @@ Transform SVG graphics into interactive, animated ASCII art with mouse-reactive 
 - **20+ Built-in Icons** - Font Awesome icons ready to use
 - **Character Animation** - Matrix-style character cycling effect
 - **Mouse Glow** - Interactive glow that follows your cursor
+- **Two-Tone Colors** - Secondary base color with primary glow accent
+- **Cursor Halo** - Optional floating ASCII characters orbit the cursor
 - **Customizable** - Full control over colors, characters, and effects
 - **Export** - Download as self-contained HTML file
 
@@ -23,11 +25,13 @@ Transform SVG graphics into interactive, animated ASCII art with mouse-reactive 
 | Cell Size | Font size in pixels |
 | Glow Radius | Size of mouse glow effect |
 | Glow Intensity | Brightness of the glow |
-| Base Opacity | Visibility of non-hovered characters |
-| Base Brightness | Color intensity of non-hovered characters |
-| Character Set | Presets: Standard, Dense, Blocks, Binary, etc. |
-| Glow Color | Color of the glow effect |
+| Base Opacity | Visibility of non-glowing characters |
+| Base Brightness | Color intensity of non-glowing characters |
+| Primary Color | Glow/hover color |
+| Secondary Color | Base character color (two-tone effect) |
 | Background | Canvas background color |
+| Cursor Halo | Floating ASCII characters orbit the cursor |
+| Character Set | Presets: Standard, Dense, Blocks, Binary, etc. |
 
 ## Character Set Presets
 
