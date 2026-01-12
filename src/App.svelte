@@ -1,10 +1,14 @@
 <script>
+  import { inject } from '@vercel/analytics'
   import IconPicker from './components/IconPicker.svelte'
   import AsciiCanvas from './components/AsciiCanvas.svelte'
   import Controls from './components/Controls.svelte'
   import { icons } from './lib/icons.js'
   import { parseSvgToGrid } from './lib/svgParser.js'
   import { exportToHtml } from './lib/exporter.js'
+
+  // Initialize Vercel Analytics
+  inject()
 
   // State
   let config = $state({
