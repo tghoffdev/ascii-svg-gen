@@ -12,11 +12,13 @@
     cellSize: 12,
     charSet: ' .:-=+*#%@',
     glowColor: '#4fc3f7',
+    secondaryColor: '#8b9dc3',
     bgColor: '#000000',
     glowRadius: 150,
     glowIntensity: 1.0,
     baseOpacity: 0.3,
-    baseBrightness: 0.5
+    baseBrightness: 0.5,
+    cursorHalo: false
   })
 
   let currentSvg = $state(null)

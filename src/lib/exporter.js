@@ -80,11 +80,13 @@ function generateHtml(gridData, config, embedSettings) {
         cellSize: ${config.cellSize},
         charSet: '${config.charSet.replace(/'/g, "\\'")}',
         glowColor: '${config.glowColor}',
+        secondaryColor: '${config.secondaryColor || config.glowColor}',
         bgColor: '${config.bgColor}',
         glowRadius: ${config.glowRadius},
         glowIntensity: ${config.glowIntensity},
         baseOpacity: ${config.baseOpacity},
-        baseBrightness: ${config.baseBrightness || 0.5}
+        baseBrightness: ${config.baseBrightness || 0.5},
+        cursorHalo: ${config.cursorHalo || false}
       };
 
       const GRID = ${gridJson};
@@ -157,6 +159,7 @@ function generateHtml(gridData, config, embedSettings) {
         ctx.textBaseline = 'top';
 
         const glowRgb = hexToRgb(CONFIG.glowColor);
+        const secondaryRgb = hexToRgb(CONFIG.secondaryColor);
 
         for (let y = 0; y < CONFIG.gridHeight; y++) {
           for (let x = 0; x < CONFIG.gridWidth; x++) {
@@ -185,11 +188,20 @@ function generateHtml(gridData, config, embedSettings) {
             const animOffset = cellData.offset + time * cellData.speed * 0.01;
             const char = getCharForBrightness(brightness, animOffset);
 
-            // Calculate color with glow (baseBrightness controls non-hovered intensity)
+            // Two-tone color: blend from secondary (base) to primary (glow)
             const baseBright = CONFIG.baseBrightness;
-            const r = Math.round(glowRgb.r * (baseBright + glowFactor * (1 - baseBright)));
-            const g = Math.round(glowRgb.g * (baseBright + glowFactor * (1 - baseBright)));
-            const b = Math.round(glowRgb.b * (baseBright + glowFactor * (1 - baseBright)));
+            const r = Math.round(
+              secondaryRgb.r * baseBright * (1 - glowFactor) +
+              glowRgb.r * (baseBright + glowFactor * (1 - baseBright))
+            );
+            const g = Math.round(
+              secondaryRgb.g * baseBright * (1 - glowFactor) +
+              glowRgb.g * (baseBright + glowFactor * (1 - baseBright))
+            );
+            const b = Math.round(
+              secondaryRgb.b * baseBright * (1 - glowFactor) +
+              glowRgb.b * (baseBright + glowFactor * (1 - baseBright))
+            );
 
             ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
 
@@ -205,6 +217,32 @@ function generateHtml(gridData, config, embedSettings) {
         }
 
         ctx.shadowBlur = 0;
+
+        // Draw cursor halo ASCII characters
+        if (CONFIG.cursorHalo && mouseX > 0 && mouseY > 0) {
+          const haloChars = 12;
+          const haloRadius = CONFIG.glowRadius * 0.6;
+
+          ctx.font = (CONFIG.cellSize * 0.8) + 'px "DM Mono", "SF Mono", "Fira Code", monospace';
+
+          for (let i = 0; i < haloChars; i++) {
+            const angle = (time * 0.02 + i * (Math.PI * 2 / haloChars)) % (Math.PI * 2);
+            const dist = haloRadius * (0.3 + 0.7 * Math.sin(time * 0.01 + i));
+            const hx = mouseX + Math.cos(angle) * dist;
+            const hy = mouseY + Math.sin(angle) * dist;
+
+            const charIndex = Math.floor((time * 0.05 + i * 3) % CONFIG.charSet.length);
+            const haloChar = CONFIG.charSet[charIndex] || '@';
+
+            const haloOpacity = 0.3 + 0.4 * Math.sin(time * 0.03 + i);
+            ctx.fillStyle = 'rgba(' + glowRgb.r + ',' + glowRgb.g + ',' + glowRgb.b + ',' + haloOpacity + ')';
+            ctx.shadowColor = CONFIG.glowColor;
+            ctx.shadowBlur = 8;
+            ctx.fillText(haloChar, hx, hy);
+          }
+          ctx.shadowBlur = 0;
+        }
+
         requestAnimationFrame(render);
       }
 

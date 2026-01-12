@@ -106,11 +106,20 @@
 
   <div class="control-row">
     <div class="control-group">
-      <label for="glowColor">Glow Color</label>
+      <label for="glowColor">Primary</label>
       <input
         type="color"
         id="glowColor"
         bind:value={config.glowColor}
+      />
+    </div>
+
+    <div class="control-group">
+      <label for="secondaryColor">Secondary</label>
+      <input
+        type="color"
+        id="secondaryColor"
+        bind:value={config.secondaryColor}
       />
     </div>
 
@@ -122,6 +131,16 @@
         bind:value={config.bgColor}
       />
     </div>
+  </div>
+
+  <div class="control-group checkbox-group">
+    <label class="checkbox-label">
+      <input
+        type="checkbox"
+        bind:checked={config.cursorHalo}
+      />
+      <span>Cursor Halo ASCII</span>
+    </label>
   </div>
 
   <div class="control-group">
@@ -235,5 +254,25 @@
   .preset-buttons button {
     font-size: 11px;
     padding: 8px;
+  }
+
+  .checkbox-group {
+    margin-top: 8px;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--text-primary);
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
   }
 </style>
